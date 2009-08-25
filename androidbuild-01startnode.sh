@@ -4,6 +4,12 @@ function log() {
     echo "[`date +%T.%N|cut -c1-12`] $*"
 }
 
+function instance_hostname() {
+    inst=$1
+    ec2-describe-instances $inst | tee describe-instances.out | \
+	awk '$1 == "INSTANCE" {print $4}'
+}
+
 test -z "$JAVA_HOME" && export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 test -z "$EC2_PRIVATE_KEY" && {
@@ -28,7 +34,10 @@ hostname=$(awk '$1 == "INSTANCE" {print $4}' run-instances.out)
 
 log "Started $instance at hostname $hostname"
 
-# XXX wait for node to be up
+while [[ $(instance_hostname $instance) == "pending" ]]; do
+	printf .
+	sleep 5
+done
 
 ec2-get-console-output $instance | tee console.out
 
