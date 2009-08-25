@@ -10,7 +10,7 @@ test -z "$EC2_PRIVATE_KEY" && {
     echo "EC2_PRIVATE_KEY must be set" >&2
     exit 1
 }
-test -z -z "$EC2_CERT" && {
+test -z "$EC2_CERT" && {
     echo "EC2_CERT must be set" >&2
     exit 1
 }
@@ -42,3 +42,7 @@ scp $sshopts androidbuild.sh build@$hostname:
 log "build $hostname start"
 ssh $sshopts build@$hostname ./androidbuild.sh
 log "build $hostname done"
+
+log "shutting down $hostname"
+ec2-terminate-instances $instance
+log "$0 done!"
