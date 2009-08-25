@@ -23,21 +23,24 @@ test -z "$EC2_CERT" && {
 
 set -e -x
 
-sshopts="-i ~/.ec2/id_rsa-gsg-keypair"
+sshopts="-i $HOME/.ec2/id_rsa-gsg-keypair"
 
 tmp=$(mktemp -d)
 cd $tmp
 
 ec2-run-instances ami-ed46a784 -k gsg-keypair | tee run-instances.out
 instance=$(awk '$1 == "INSTANCE" {print $2}' run-instances.out)
-hostname=$(awk '$1 == "INSTANCE" {print $4}' run-instances.out)
 
-log "Started $instance at hostname $hostname"
+log "Started $instance"
 
-while [[ $(instance_hostname $instance) == "pending" ]]; do
-	printf .
-	sleep 5
+hostname=$(instance_hostname $instance)
+while [[ "$hostname" == "pending" ]]; do
+    sleep 5
+    hostname=$(instance_hostname $instance)
+    printf .
 done
+
+log "Got hostname $hostname"
 
 ec2-get-console-output $instance | tee console.out
 
