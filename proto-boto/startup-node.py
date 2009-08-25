@@ -18,4 +18,4 @@ while inst.update() == 'pending':
 	time.sleep(1)
 print
 print inst.dns_name
-open(inst.id, 'w').write('%s\n', inst.id)
+open(inst.id, 'w').write(inst.id)
