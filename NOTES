@@ -1,0 +1,20 @@
+   56  export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.14 
+   62  ec2-describe-images ami-ed46a784
+   65  ec2-add-keypair gsg-keypair | tee id_rsa-gsg-keypair
+
+   70  ec2-run-instances ami-ed46a784 -k gsg-keypair
+
+   72  ec2-describe-instances 
+   73  ssh -i id_rsa-gsg-keypair -v root@ec2-174-129-155-175.compute-1.amazonaws.com
+
+export EC2_PRIVATE_KEY=`ls ~/.ec2/pk-*.pem`
+export EC2_CERT=`ls ~/.ec2/cert-*.pem`
+
+    3  apt-get update
+    7  apt-get -y install git-core gnupg flex bison gperf build-essential zip curl sun-java5-jdk zlib1g-dev gcc-multilib g++-multilib lib32ncurses5-dev ia32-libs x11proto-core-dev libx11-dev lib32readline5-dev lib32z-dev
+    8  update-java-alternatives -s java-1.5.0-sun
+    9  curl http://android.git.kernel.org/repo >~/bin/repo
+   10  mkdir ~/bin
+   11  curl http://android.git.kernel.org/repo >~/bin/repo
+
+
