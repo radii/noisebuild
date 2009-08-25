@@ -23,8 +23,8 @@ tmp=$(mktemp -d)
 cd $tmp
 
 ec2-run-instances ami-ed46a784 -k gsg-keypair | tee run-instances.out
-instance=$(awk '$1 == INSTANCE {print $2}' run-instances.out)
-hostname=$(awk '$1 == INSTANCE {print $4}' run-instances.out)
+instance=$(awk '$1 == "INSTANCE" {print $2}' run-instances.out)
+hostname=$(awk '$1 == "INSTANCE" {print $4}' run-instances.out)
 
 log "Started $instance at hostname $hostname"
 
