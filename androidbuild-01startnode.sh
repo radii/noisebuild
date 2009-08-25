@@ -25,6 +25,7 @@ set -e -x
 
 sshopts="-i $HOME/.ec2/id_rsa-gsg-keypair"
 
+P=$(pwd)
 tmp=$(mktemp -d)
 cd $tmp
 
@@ -46,15 +47,15 @@ ec2-get-console-output $instance | tee console.out
 
 # XXX verify host key fingerprints
 
-scp $sshopts androidbuild-10setup.sh root@$hostname:
+scp $sshopts $P/androidbuild-10setup.sh root@$hostname:
 log "setup $hostname start"
 ssh $sshopts root@$hostname ./androidbuild-10setup.sh
 log "setup $hostname done"
-scp $sshopts androidbuild-20usersetup.sh build@$hostname:
+scp $sshopts $P/androidbuild-20usersetup.sh build@$hostname:
 log "usersetup $hostname start"
 ssh $sshopts build@$hostname ./androidbuild-20usersetup.sh
 log "usersetup $hostname done"
-scp $sshopts androidbuild-90run.sh build@$hostname
+scp $sshopts $P/androidbuild-90run.sh build@$hostname
 log "run $hostname start"
 ssh $sshopts build@$hostname ./androidbiuld-90run.sh
 log "run $hostname done"
