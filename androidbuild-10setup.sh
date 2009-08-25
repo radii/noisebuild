@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e -x
 
@@ -14,3 +14,10 @@ update-java-alternatives -s java-1.5.0-sun
 mkdir -p /opt/repo/bin
 curl http://android.git.kernel.org/repo > /opt/repo/bin/repo
 chmod +x /opt/repo/bin/repo
+md5sum /opt/repo/bin/repo
+
+adduser --disabled-password --gecos 'Android Buildbot' build
+mkdir -p ~build/.ssh
+cp /root/.ssh/authorized_keys ~build/.ssh
+chown -R build ~build/.ssh
+chmod -R u+rX,go-rwx ~build/.ssh

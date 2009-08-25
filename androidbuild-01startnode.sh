@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function log() {
     echo "[`date +%T.%N|cut -c1-12`] $*"
@@ -34,15 +34,19 @@ ec2-get-console-output $instance | tee console.out
 
 # XXX verify host key fingerprints
 
-scp $sshopts androidbuild-setup.sh root@$hostname:
+scp $sshopts androidbuild-10setup.sh root@$hostname:
 log "setup $hostname start"
-ssh $sshopts root@$hostname ./androidbuild-setup.sh
+ssh $sshopts root@$hostname ./androidbuild-10setup.sh
 log "setup $hostname done"
-scp $sshopts androidbuild.sh build@$hostname:
-log "build $hostname start"
-ssh $sshopts build@$hostname ./androidbuild.sh
-log "build $hostname done"
+scp $sshopts androidbuild-20usersetup.sh build@$hostname:
+log "usersetup $hostname start"
+ssh $sshopts build@$hostname ./androidbuild-20usersetup.sh
+log "usersetup $hostname done"
+scp $sshopts androidbuild-90run.sh build@$hostname
+log "run $hostname start"
+ssh $sshopts build@$hostname ./androidbiuld-90run.sh
+log "run $hostname done"
 
-log "shutting down $hostname"
-ec2-terminate-instances $instance
-log "$0 done!"
+#log "shutting down $hostname"
+#ec2-terminate-instances $instance
+#log "$0 done!"
