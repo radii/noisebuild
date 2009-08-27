@@ -55,9 +55,9 @@ scp $sshopts $P/androidbuild-20usersetup.sh build@$hostname:
 log "usersetup $hostname start"
 ssh $sshopts build@$hostname ./androidbuild-20usersetup.sh
 log "usersetup $hostname done"
-scp $sshopts $P/androidbuild-90run.sh build@$hostname
+scp $sshopts $P/androidbuild-90run.sh build@$hostname:
 log "run $hostname start"
-ssh $sshopts build@$hostname ./androidbiuld-90run.sh
+ssh $sshopts build@$hostname ./androidbuild-90run.sh
 log "run $hostname done"
 
 #log "shutting down $hostname"

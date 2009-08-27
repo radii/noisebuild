@@ -2,8 +2,8 @@
 
 PATH=/opt/repo/bin:$PATH
 mkdir mydroid; cd mydroid
-repo init -u git://android.git.kernel.org/platform/manifest.git
-repo sync
+yes '' | repo init -u git://android.git.kernel.org/platform/manifest.git
+yes '' | repo sync
 gpg --import <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.2.2 (GNU/Linux)
