@@ -2,9 +2,16 @@
 
 set -e -x
 
+export DEBIAN_FRONTEND=teletype
+
 apt-get update
-export DEBIAN_FRONTEND=readline
-yes yes | apt-get -y install git-core gnupg flex bison gperf build-essential zip \
+
+# accept the Sun DLJ (wankers)
+for b in bin jdk jre; do
+    echo "sun-java5-$b shared/accepted-sun-dlj-v1-1 boolean true"
+done | debconf-set-selections
+
+apt-get -y install git-core gnupg flex bison gperf build-essential zip \
     curl sun-java5-jdk zlib1g-dev gcc-multilib g++-multilib \
     libncurses5-dev x11proto-core-dev libx11-dev \
     libreadline5-dev libz-dev
