@@ -1,6 +1,6 @@
 #!/bin/sh
 
 PATH=/opt/repo/bin:$PATH
-cd mydroid
+cd /mnt/build/mydroid
 
 make

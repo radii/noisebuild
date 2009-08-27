@@ -1,7 +1,7 @@
 #!/bin/sh
 
 PATH=/opt/repo/bin:$PATH
-mkdir mydroid; cd mydroid
+mkdir /mnt/build/mydroid; cd /mnt/build/mydroid
 yes '' | repo init -u git://android.git.kernel.org/platform/manifest.git
 yes '' | repo sync
 gpg --import <<EOF
