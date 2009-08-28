@@ -1,8 +1,6 @@
 #!/bin/bash
 
-function log() {
-    echo "[`date +%T.%N|cut -c1-12`] $*"
-}
+. ./common.inc
 
 function instance_hostname() {
     inst=$1
@@ -29,6 +27,13 @@ P=$(pwd)
 tmp=$(mktemp -d)
 cd $tmp
 
+(
+    echo buildnum=noisedroid-00002
+    echo BUCKET=noisebuild
+) > build.conf
+
+. ./build.conf
+
 ec2-run-instances -t c1.medium ami-ed46a784 -k gsg-keypair | tee run-instances.out
 instance=$(awk '$1 == "INSTANCE" {print $2}' run-instances.out)
 
@@ -51,7 +56,8 @@ scp $sshopts $P/androidbuild-10setup.sh root@$hostname:
 log "setup $hostname start"
 ssh $sshopts root@$hostname ./androidbuild-10setup.sh
 log "setup $hostname done"
-scp $sshopts $P/androidbuild-20usersetup.sh build@$hostname:
+scp $sshopts $P/androidbuild-20usersetup.sh $P/common.inc build.conf \
+        build@$hostname:
 log "usersetup $hostname start"
 ssh $sshopts build@$hostname ./androidbuild-20usersetup.sh
 log "usersetup $hostname done"
