@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PATH=/opt/repo/bin:$PATH
 mkdir /mnt/build/mydroid; cd /mnt/build/mydroid
