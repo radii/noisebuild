@@ -57,7 +57,7 @@ scp $sshopts $P/androidbuild-10setup.sh root@$hostname:
 log "setup $hostname start"
 ssh $sshopts root@$hostname ./androidbuild-10setup.sh
 log "setup $hostname done"
-scp $sshopts $P/androidbuild-20usersetup.sh $P/common.inc build.conf \
+scp $sshopts $P/androidbuild-20usersetup.sh $P/common.inc build.conf ~/.s3cmd \
         build@$hostname:
 log "usersetup $hostname start"
 ssh $sshopts build@$hostname ./androidbuild-20usersetup.sh
