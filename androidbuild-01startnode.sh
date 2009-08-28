@@ -45,6 +45,7 @@ while [[ "$hostname" == "pending" ]]; do
     hostname=$(instance_hostname $instance)
     printf .
 done
+echo
 
 log "Got hostname $hostname"
 
