@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e -x
+set -e
 
 export DEBIAN_FRONTEND=teletype
 

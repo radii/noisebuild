@@ -19,7 +19,7 @@ test -z "$EC2_CERT" && {
     exit 1
 }
 
-set -e -x
+set -e
 
 sshopts="-i $HOME/.ec2/id_rsa-gsg-keypair"
 
