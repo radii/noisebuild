@@ -6,6 +6,8 @@
 PATH=/opt/repo/bin:$PATH
 cd /mnt/build/mydroid
 
+. build/envsetup.sh
+lunch htc_dream-eng
 make
 
 log "make exited with code $?"
