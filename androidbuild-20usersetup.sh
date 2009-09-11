@@ -36,3 +36,6 @@ EXzeoxcdoafxqf6gZlJZlACgkWF7wi2YLW3Oa+jv2QSTlrx4KLM=
 =Wi5D
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
+
+s3cmd get s3://noisebuild/dream-proprietary.tar.gz
+tar -C mydroid/vendor/htc/dream-open -xzf dream-proprietary.tar.gz
