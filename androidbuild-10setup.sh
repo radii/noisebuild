@@ -25,12 +25,12 @@ curl http://android.git.kernel.org/repo > /opt/repo/bin/repo
 chmod +x /opt/repo/bin/repo
 md5sum /opt/repo/bin/repo
 
-adduser --disabled-password --gecos 'Noisedroid Buildbot' build
+[ -d ~build ] || adduser --disabled-password --gecos 'Noisedroid Buildbot' build
 
 mkdir -p ~build/.ssh
 cp /root/.ssh/authorized_keys ~build/.ssh
 chown -R build ~build/.ssh
 chmod -R u+rX,go-rwx ~build/.ssh
 
-mkdir /mnt/build
+mkdir -p /mnt/build
 chown build /mnt/build
