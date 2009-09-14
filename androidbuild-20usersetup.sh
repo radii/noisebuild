@@ -2,7 +2,7 @@
 
 PATH=/opt/repo/bin:$PATH
 mkdir /mnt/build/mydroid; cd /mnt/build/mydroid
-s3cmd get s3://noisebuild/mydroid.repo.tar.gz
+s3cmd get --no-progress s3://noisebuild/mydroid.repo.tar.gz
 if [ -f mydroid.repo.tar.gz ]; then
     tar xzf mydroid.repo.tar.gz
 else
@@ -10,7 +10,7 @@ else
 fi
 yes '' | repo sync
 tar czf mydroid.repo.tar.gz .repo
-s3cmd put mydroid.repo.tar.gz s3://noisebuild/mydroid.repo.tar.gz &
+s3cmd put --no-progress mydroid.repo.tar.gz s3://noisebuild/mydroid.repo.tar.gz &
 gpg --import <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.2.2 (GNU/Linux)
