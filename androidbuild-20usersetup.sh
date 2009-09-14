@@ -2,7 +2,7 @@
 
 PATH=/opt/repo/bin:$PATH
 mkdir /mnt/build/mydroid; cd /mnt/build/mydroid
-s3cmd get --no-progress s3://noisebuild/mydroid.repo.tar.gz
+s3get noisebuild/mydroid.repo.tar.gz
 if [ -f mydroid.repo.tar.gz ]; then
     tar xzf mydroid.repo.tar.gz
 else

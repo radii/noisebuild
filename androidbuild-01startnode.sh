@@ -72,12 +72,12 @@ ec2-get-console-output $instance | tee console.out
 
 # XXX verify host key fingerprints
 
-scp $sshopts $P/androidbuild-10setup.sh root@$hostname:
+scp $sshopts $P/androidbuild-10setup.sh ~/.s3cfg ~/.awssecret root@$hostname:
 log "setup $hostname start"
 ssh $sshopts root@$hostname ./androidbuild-10setup.sh
 log "setup $hostname done"
 scp $sshopts $P/androidbuild-20usersetup.sh $P/common.inc build.conf ~/.s3cfg \
-        build@$hostname:
+	~/.awssecret build@$hostname:
 log "usersetup $hostname start"
 ssh $sshopts build@$hostname ./androidbuild-20usersetup.sh
 log "usersetup $hostname done"
