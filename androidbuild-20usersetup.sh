@@ -2,8 +2,15 @@
 
 PATH=/opt/repo/bin:$PATH
 mkdir /mnt/build/mydroid; cd /mnt/build/mydroid
-yes '' | repo init -u git://android.git.kernel.org/platform/manifest.git
+s3cmd get s3://noisebuild/mydroid.repo.tar.gz
+if [ -f mydroid.repo.tar.gz ]; then
+    tar xzf mydroid.repo.tar.gz
+else
+    yes '' | repo init -u git://android.git.kernel.org/platform/manifest.git
+fi
 yes '' | repo sync
+tar czf mydroid.repo.tar.gz .repo
+s3cmd put mydroid.repo.tar.gz s3://noisebuild/mydroid.repo.tar.gz &
 gpg --import <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.2.2 (GNU/Linux)
