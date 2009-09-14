@@ -27,12 +27,20 @@ P=$(pwd)
 tmp=$(mktemp -d)
 cd $tmp
 
-(
-    echo buildnum=noisedroid-00002
-    echo BUCKET=noisebuild
-) > build.conf
+test -z "$BUCKET" && BUCKET=noisebuild
 
-. ./build.conf
+# XXX this is a race, ideally would have a web service providing build
+# numbers
+buildnum=$(curl -s http://$BUCKET.s3.amazonaws.com/lastbuild.txt)
+[ -z "$buildnum" ] && buildnum=noisedroid-0000
+buildnum=$(echo $buildnum | perl -pe 's/(\d+)$/sprintf("%0*d", length($1), $1+1)/e')
+echo $buildnum > lastbuild.txt
+s3cmd put -P lastbuild.txt s3://$BUCKET/lastbuild.txt
+
+(
+    echo buildnum=$buildnum
+    echo BUCKET=$BUCKET
+) > build.conf
 
 ec2-run-instances -t c1.medium ami-ed46a784 -k gsg-keypair | tee run-instances.out
 instance=$(awk '$1 == "INSTANCE" {print $2}' run-instances.out)
