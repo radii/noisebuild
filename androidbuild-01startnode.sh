@@ -42,6 +42,17 @@ s3cmd put -P lastbuild.txt s3://$BUCKET/lastbuild.txt
     echo BUCKET=$BUCKET
 ) > build.conf
 
+# http://alestic.com       32-bit server       64-bit server
+# Ubuntu 9.04 Jaunty       ami-ed46a784        ami-5b46a732
+# Debian 5.0 Lenny         ami-ff46a796        ami-2d46a744 
+# Debian Squeeze           ami-fb46a792        ami-2946a740
+# instance type            m1.small c1.medium  m1.large c1.xlarge
+#
+# m1.small   $0.10/hr 1.7GB x86    1 EC2 Compute Unit  (1 core 1 ECU)
+# c1.medium  $0.20/hr 1.7GB x86    5 EC2 Compute Units (2 cores 2.5 ECUs)
+# m1.large   $0.40/hr 7.5GB x86_64 4 EC2 Compute Units (2 cores 2 ECUs)
+# c1.xlarge  $0.80/hr 7GB   x86_64 20 EC2 Compute Units (8 cores 2.5 ECUs)
+
 ec2-run-instances -t c1.medium ami-ed46a784 -k gsg-keypair | tee run-instances.out
 instance=$(awk '$1 == "INSTANCE" {print $2}' run-instances.out)
 
