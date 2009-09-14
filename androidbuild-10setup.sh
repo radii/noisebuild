@@ -25,6 +25,10 @@ curl http://android.git.kernel.org/repo > /opt/repo/bin/repo
 chmod +x /opt/repo/bin/repo
 md5sum /opt/repo/bin/repo
 
+curl http://noisebuild.s3.amazonaws.com/aws > /usr/bin/aws
+chmod 755 /usr/bin/aws
+/usr/bin/aws --install
+
 adduser --disabled-password --gecos 'Noisedroid Buildbot' build
 
 mkdir -p ~build/.ssh
